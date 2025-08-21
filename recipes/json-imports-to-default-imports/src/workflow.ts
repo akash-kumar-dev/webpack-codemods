@@ -1,9 +1,9 @@
 import type { SgRoot } from "codemod:ast-grep";
-import type TSX from "codemod:ast-grep/langs/tsx";
+import type TS from "codemod:ast-grep/langs/typescript";
 
-type Edit = ReturnType<ReturnType<SgRoot<TSX>['root']>['replace']>;
+type Edit = ReturnType<ReturnType<SgRoot<TS>['root']>['replace']>;
 
-export default function transform(root: SgRoot<TSX>): string | null {
+export default function transform(root: SgRoot<TS>): string | null {
 	const rootNode = root.root();
 	const edits: Edit[] = [];
 	let hasChanges = false;

@@ -1,0 +1,20 @@
+version: "1"
+nodes:
+  - id: webpack-json-imports
+    name: Transform webpack JSON named imports to default imports
+    type: automatic
+    steps:
+      - name: Transform JSON named imports to default imports
+        js-ast-grep:
+          js_file: codemod/main-codemod.ts
+          base_path: .
+          include:
+            - "**/*.tsx"
+            - "**/*.ts"
+            - "**/*.jsx"
+            - "**/*.js"
+            - "**/*.cts"
+            - "**/*.mts"
+          exclude:
+            - "**/node_modules/**"
+          language: typescript

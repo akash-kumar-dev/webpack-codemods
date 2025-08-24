@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akash-kumar-dev/webpack-codemods.git",
-    "directory": "recipes/set-target-to-false-and-update-plugins",
+    "directory": "recipes/migrate-library-target-to-library-object",
     "bugs": "https://github.com/akash-kumar-dev/webpack-codemods/issues"
   },
   "author": "akash-kumar-dev",

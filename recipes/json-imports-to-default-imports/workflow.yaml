@@ -1,12 +1,12 @@
 version: "1"
 nodes:
-  - id: webpack-json-imports
-    name: Transform webpack JSON named imports to default imports
+  - id: apply-transforms
+    name: Apply AST Transformations
     type: automatic
     steps:
       - name: Transform JSON named imports to default imports
         js-ast-grep:
-          js_file: codemod/main-codemod.ts
+          js_file: src/workflow.ts
           base_path: .
           include:
             - "**/*.tsx"

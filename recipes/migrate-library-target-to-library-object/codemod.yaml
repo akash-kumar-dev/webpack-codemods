@@ -1,0 +1,20 @@
+schema_version: "1.0"
+name: "webpack/v5/migrate-library-target-to-library-object"
+version: 1.0.0
+description: Transform Webpack 'library' and 'libraryTarget' to the new object format.
+author: akash-kumar-dev
+license: MIT
+workflow: workflow.yaml
+category: migration
+
+targets:
+  languages:
+    - javascript
+    - typescript
+
+keywords:
+  - webpack
+
+registry:
+  access: public
+  visibility: public

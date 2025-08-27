@@ -1,7 +1,7 @@
 import type { SgRoot } from "codemod:ast-grep";
 import type TS from "codemod:ast-grep/langs/typescript";
 
-type Edit = ReturnType<ReturnType<SgRoot<TS>['root']>['replace']>;
+type Edit = ReturnType<ReturnType<SgRoot<TS>["root"]>["replace"]>;
 
 export default function transform(root: SgRoot<TS>): string | null {
 	const rootNode = root.root();
@@ -11,8 +11,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 	// Find all import statements from JSON files
 	const allImportStatements = rootNode.findAll({
 		rule: {
-			kind: "import_statement"
-		}
+			kind: "import_statement",
+		},
 	});
 
 	// Track transformations to apply identifier replacements
@@ -26,23 +26,23 @@ export default function transform(root: SgRoot<TS>): string | null {
 		// Check if this import has a string source ending with .json
 		const sourceStrings = importStatement.findAll({
 			rule: {
-				kind: "string"
-			}
+				kind: "string",
+			},
 		});
 
 		if (sourceStrings.length === 0) continue;
-		
+
 		const sourceString = sourceStrings[0];
 		const sourceText = sourceString.text();
 		const importPath = sourceText.slice(1, -1);
 
-		if (!importPath.endsWith('.json')) continue;
+		if (!importPath.endsWith(".json")) continue;
 
 		// Check if this import has named imports
 		const namedImports = importStatement.findAll({
 			rule: {
-				kind: "named_imports"
-			}
+				kind: "named_imports",
+			},
 		});
 
 		if (namedImports.length === 0) continue;
@@ -50,8 +50,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 		// Extract import specifiers
 		const importSpecifiers = importStatement.findAll({
 			rule: {
-				kind: "import_specifier"
-			}
+				kind: "import_specifier",
+			},
 		});
 
 		if (importSpecifiers.length === 0) continue;
@@ -61,8 +61,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 		for (const specifier of importSpecifiers) {
 			const identifiers = specifier.findAll({
 				rule: {
-					kind: "identifier"
-				}
+					kind: "identifier",
+				},
 			});
 
 			if (identifiers.length > 0) {
@@ -74,8 +74,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 		if (importedNames.length === 0) continue;
 
 		// Generate default import name
-		const importBaseName = importPath.split('/').pop()?.replace('.json', '') || 'config';
-		const defaultImportName = importBaseName === 'package' ? 'pkg' : importBaseName;
+		const importBaseName = importPath.split("/").pop()?.replace(".json", "") || "config";
+		const defaultImportName = importBaseName === "package" ? "pkg" : importBaseName;
 
 		edits.push(importStatement.replace(`import ${defaultImportName} from ${sourceText};`));
 
@@ -83,7 +83,7 @@ export default function transform(root: SgRoot<TS>): string | null {
 		transformations.push({
 			importedNames,
 			defaultImportName,
-			importPath
+			importPath,
 		});
 
 		hasChanges = true;
@@ -96,16 +96,16 @@ export default function transform(root: SgRoot<TS>): string | null {
 			const identifiers = rootNode.findAll({
 				rule: {
 					kind: "identifier",
-					regex: `^${escapeRegex(importedName)}$`
-				}
+					regex: `^${escapeRegex(importedName)}$`,
+				},
 			});
 
 			for (const identifier of identifiers) {
 				// Skip if this identifier is part of an import statement
 				const isInImportStatement = identifier.inside({
 					rule: {
-						kind: "import_statement"
-					}
+						kind: "import_statement",
+					},
 				});
 
 				if (isInImportStatement) continue;
@@ -123,5 +123,5 @@ export default function transform(root: SgRoot<TS>): string | null {
 }
 
 function escapeRegex(str: string): string {
-	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

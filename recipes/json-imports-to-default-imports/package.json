@@ -1,21 +1,21 @@
 {
-  "name": "webpack/v5/json-imports-to-default-imports",
-  "version": "1.0.0",
-  "description": "Transform JSON named imports to default imports",
-  "type": "module",
-  "scripts": {
-    "test": "npx codemod jssg test -l typescript ./src/workflow.ts ./"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akash-kumar-dev/webpack-codemods.git",
-    "directory": "recipes/json-imports-to-default-imports",
-    "bugs": "https://github.com/akash-kumar-dev/webpack-codemods/issues"
-  },
-  "author": "akash-kumar-dev",
-  "license": "MIT",
-  "homepage": "https://github.com/akash-kumar-dev/webpack-codemods/blob/main/recipes/json-imports-to-default-imports/README.md",
-  "devDependencies": {
-    "@codemod.com/jssg-types": "^1.0.3"
-  }
+	"name": "webpack/v5/json-imports-to-default-imports",
+	"version": "1.0.0",
+	"description": "Transform JSON named imports to default imports",
+	"type": "module",
+	"scripts": {
+		"test": "npx codemod jssg test -l typescript ./src/workflow.ts ./"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/akash-kumar-dev/webpack-codemods.git",
+		"directory": "recipes/json-imports-to-default-imports",
+		"bugs": "https://github.com/akash-kumar-dev/webpack-codemods/issues"
+	},
+	"author": "akash-kumar-dev",
+	"license": "MIT",
+	"homepage": "https://github.com/akash-kumar-dev/webpack-codemods/blob/main/recipes/json-imports-to-default-imports/README.md",
+	"devDependencies": {
+		"@codemod.com/jssg-types": "^1.0.3"
+	}
 }

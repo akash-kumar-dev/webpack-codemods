@@ -1,3 +1,3 @@
 module.exports = {
-  target: WebExtensionTarget(nodeConfig),
+	target: WebExtensionTarget(nodeConfig),
 };

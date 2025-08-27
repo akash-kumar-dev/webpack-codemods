@@ -1,7 +1,7 @@
 import type { SgRoot } from "codemod:ast-grep";
 import type TS from "codemod:ast-grep/langs/typescript";
 
-type Edit = ReturnType<ReturnType<SgRoot<TS>['root']>['replace']>;
+type Edit = ReturnType<ReturnType<SgRoot<TS>["root"]>["replace"]>;
 
 export default function transform(root: SgRoot<TS>): string | null {
 	const rootNode = root.root();
@@ -17,18 +17,18 @@ export default function transform(root: SgRoot<TS>): string | null {
 				has: {
 					field: "object",
 					kind: "identifier",
-					regex: "^module$"
-				}
-			}
-		}
+					regex: "^module$",
+				},
+			},
+		},
 	});
 
 	for (const moduleExport of moduleExports) {
 		// Find the right side of the assignment (the configuration object)
 		const rightSide = moduleExport.find({
 			rule: {
-				kind: "object"
-			}
+				kind: "object",
+			},
 		});
 
 		if (!rightSide) continue;
@@ -40,9 +40,9 @@ export default function transform(root: SgRoot<TS>): string | null {
 				has: {
 					field: "key",
 					kind: "property_identifier",
-					regex: "^output$"
-				}
-			}
+					regex: "^output$",
+				},
+			},
 		});
 
 		if (!outputProperty) continue;
@@ -50,8 +50,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 		// Find the output object value
 		const outputObject = outputProperty.find({
 			rule: {
-				kind: "object"
-			}
+				kind: "object",
+			},
 		});
 
 		if (!outputObject) continue;
@@ -63,9 +63,9 @@ export default function transform(root: SgRoot<TS>): string | null {
 				has: {
 					field: "key",
 					kind: "property_identifier",
-					regex: "^library$"
-				}
-			}
+					regex: "^library$",
+				},
+			},
 		});
 
 		const libraryTargetProperty = outputObject.find({
@@ -74,9 +74,9 @@ export default function transform(root: SgRoot<TS>): string | null {
 				has: {
 					field: "key",
 					kind: "property_identifier",
-					regex: "^libraryTarget$"
-				}
-			}
+					regex: "^libraryTarget$",
+				},
+			},
 		});
 
 		if (!libraryProperty) continue;
@@ -84,8 +84,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 		// Get the library value
 		const libraryValue = libraryProperty.find({
 			rule: {
-				kind: "string"
-			}
+				kind: "string",
+			},
 		});
 
 		if (!libraryValue) continue;
@@ -97,8 +97,8 @@ export default function transform(root: SgRoot<TS>): string | null {
 		if (libraryTargetProperty) {
 			const libraryTargetValue = libraryTargetProperty.find({
 				rule: {
-					kind: "string"
-				}
+					kind: "string",
+				},
 			});
 			if (libraryTargetValue) {
 				libraryType = libraryTargetValue.text();
@@ -108,43 +108,40 @@ export default function transform(root: SgRoot<TS>): string | null {
 		// Get all properties in the output object to reconstruct it properly
 		const allProperties = outputObject.findAll({
 			rule: {
-				kind: "pair"
-			}
+				kind: "pair",
+			},
 		});
 
-		// Build new output object content
+		// Build new output object content with preserved tabs and trailing commas per property
 		const newProperties: string[] = [];
-		
+
 		for (const property of allProperties) {
 			const keyNode = property.find({
 				rule: {
-					kind: "property_identifier"
-				}
+					kind: "property_identifier",
+				},
 			});
-			
+
 			if (!keyNode) continue;
-			
+
 			const keyName = keyNode.text();
-			
+
 			if (keyName === "library") {
-				// Replace with new library object
-				newProperties.push(`library: {
-      name: ${libraryName},
-      type: ${libraryType === "undefined" ? "undefined" : libraryType},
-    }`);
+				// Replace with new library object, keep trailing comma
+				newProperties.push(
+					`library: {\n\t\t\tname: ${libraryName},\n\t\t\ttype: ${libraryType === "undefined" ? "undefined" : libraryType},\n\t\t},`,
+				);
 			} else if (keyName === "libraryTarget") {
 				// Skip libraryTarget property - it's being moved into library.type
-				continue;
+				// (no-op)
 			} else {
-				// Keep other properties as-is
-				newProperties.push(property.text());
+				// Keep other properties and add trailing comma
+				newProperties.push(`${property.text()},`);
 			}
 		}
 
-		// Replace the entire output object
-		const newOutputObject = `{
-    ${newProperties.join(",\n    ")},
-  }`;
+		// Replace the entire output object with tab-indented content to match source style
+		const newOutputObject = `{\n\t\t${newProperties.join("\n\t\t")}\n\t}`;
 
 		edits.push(outputObject.replace(newOutputObject));
 		hasChanges = true;

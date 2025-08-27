@@ -17,4 +17,9 @@ nodes:
             - "**/*.mts"
           exclude:
             - "**/node_modules/**"
+            - "**/dist/**"
+            - "**/build/**"
+            - "**/coverage/**"
+            - "**/.next/**"
+            - "**/out/**"
           language: typescript

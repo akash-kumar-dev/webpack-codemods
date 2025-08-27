@@ -1,3 +1,3 @@
 module.exports = {
-  target: CustomTargetFunction(config),
+	target: CustomTargetFunction(config),
 };

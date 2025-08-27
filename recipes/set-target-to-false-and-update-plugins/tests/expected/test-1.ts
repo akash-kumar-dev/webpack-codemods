@@ -1,4 +1,4 @@
 module.exports = {
-  target: false,
-  plugins: [WebExtensionTarget(nodeConfig)],
+	target: false,
+	plugins: [WebExtensionTarget(nodeConfig)],
 };

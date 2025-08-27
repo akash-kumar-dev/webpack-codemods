@@ -1,7 +1,7 @@
 import type { SgRoot } from "codemod:ast-grep";
 import type JS from "codemod:ast-grep/langs/javascript";
 
-type Edit = ReturnType<ReturnType<SgRoot<JS>['root']>['replace']>;
+type Edit = ReturnType<ReturnType<SgRoot<JS>["root"]>["replace"]>;
 
 export default function transform(root: SgRoot<JS>): string | null {
 	const rootNode = root.root();
@@ -11,27 +11,27 @@ export default function transform(root: SgRoot<JS>): string | null {
 	// Find all pairs in the code
 	const pairs = rootNode.findAll({
 		rule: {
-			kind: "pair"
-		}
+			kind: "pair",
+		},
 	});
 
 	for (const pair of pairs) {
 		const pairText = pair.text();
-		
+
 		// Check if this is a target property with a call expression
-		if (pairText.startsWith('target:')) {
+		if (pairText.startsWith("target:")) {
 			// Find call expressions in this pair
 			const callExpressions = pair.findAll({
 				rule: {
-					kind: "call_expression"
-				}
+					kind: "call_expression",
+				},
 			});
-			
+
 			if (callExpressions.length > 0) {
 				const callExpressionText = callExpressions[0].text();
-				
+
 				// Replace this pair with both target: false and plugins array
-				edits.push(pair.replace(`target: false,\n  plugins: [${callExpressionText}]`));
+				edits.push(pair.replace(`target: false,\n\tplugins: [${callExpressionText}]`));
 				hasChanges = true;
 			}
 		}

@@ -1,21 +1,21 @@
 {
-  "name": "set-target-to-false-and-update-plugins",
-  "version": "1.0.0",
-  "description": "Transform Webpack 'target' function to 'false' and move to 'plugins'.",
-  "type": "module",
-  "scripts": {
-    "test": "npx codemod jssg test -l typescript ./src/workflow.ts ./"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akash-kumar-dev/webpack-codemods.git",
-    "directory": "recipes/set-target-to-false-and-update-plugins",
-    "bugs": "https://github.com/akash-kumar-dev/webpack-codemods/issues"
-  },
-  "author": "akash-kumar-dev",
-  "license": "MIT",
-  "homepage": "https://github.com/akash-kumar-dev/webpack-codemods/blob/main/recipes/set-target-to-false-and-update-plugins/README.md",
-  "devDependencies": {
-    "@codemod.com/jssg-types": "^1.0.3"
-  }
+	"name": "set-target-to-false-and-update-plugins",
+	"version": "1.0.0",
+	"description": "Transform Webpack 'target' function to 'false' and move to 'plugins'.",
+	"type": "module",
+	"scripts": {
+		"test": "npx codemod jssg test -l typescript ./src/workflow.ts ./"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/akash-kumar-dev/webpack-codemods.git",
+		"directory": "recipes/set-target-to-false-and-update-plugins",
+		"bugs": "https://github.com/akash-kumar-dev/webpack-codemods/issues"
+	},
+	"author": "akash-kumar-dev",
+	"license": "MIT",
+	"homepage": "https://github.com/akash-kumar-dev/webpack-codemods/blob/main/recipes/set-target-to-false-and-update-plugins/README.md",
+	"devDependencies": {
+		"@codemod.com/jssg-types": "^1.0.3"
+	}
 }

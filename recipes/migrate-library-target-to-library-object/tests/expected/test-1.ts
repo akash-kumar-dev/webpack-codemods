@@ -1,8 +1,8 @@
 module.exports = {
-  output: {
-    library: {
-      name: "MyLibrary",
-      type: "commonjs2",
-    },
-  },
+	output: {
+		library: {
+			name: "MyLibrary",
+			type: "commonjs2",
+		},
+	},
 };

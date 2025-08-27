@@ -1,0 +1,12 @@
+version: "1"
+nodes:
+  - id: migrate
+    name: Migration Recipe
+    type: automatic
+    steps:
+      - name: Step 1
+        run: npx -y codemod@latest webpack/v5/json-imports-to-default-imports
+      - name: Step 2
+        run: npx -y codemod@latest webpack/v5/migrate-library-target-to-library-object
+      - name: Step 3
+        run: npx -y codemod@latest webpack/v5/set-target-to-false-and-update-plugins

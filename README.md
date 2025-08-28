@@ -1,8 +1,7 @@
-<div align="center">
-    <a href="https://webpack.js.org">
-        <img width="200" height="200" src="https://webpack.js.org/assets/icon-square-big.svg">
-    </a>
-</div>
+<img
+  src=".github/assets/webpack-codemods.png"
+  alt="Webpack Migration Codemods"
+/>
 
 <h1 align="center">webpack codemods</h1>
 

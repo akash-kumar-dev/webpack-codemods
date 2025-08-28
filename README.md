@@ -3,8 +3,6 @@
   alt="Webpack Migration Codemods"
 />
 
-<h1 align="center">webpack codemods</h1>
-
 This repository contains codemods (automated migrations) for webpack. These codemods facilitate adopting new features and upgrading to versions with breaking changes.
 
 ## Quickstart
